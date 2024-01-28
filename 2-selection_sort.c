@@ -1,47 +1,33 @@
 #include "sort.h"
-
-/**
- * swap - the values of two integer variables.
- *
- * This function takes two integer pointers, x and y, and swaps the values
- * stored at the memory locations pointed to by these pointers.
- *
- * @x: Pointer to the first integer variable.
- * @y: Pointer to the second integer variable.
-*/
-
-void swap(int *x, int *y)
-{
-int tmp;
-tmp = *x;
-*x = *y;
-*y = tmp;
-}
-
 /**
  * selection_sort - function that sorts an array of integers in ascending
  * order using the Selection sort algorithm
  * @size: size of the array
  * @array: list with numbers
-*/
-
+ */
 void selection_sort(int *array, size_t size)
 {
-size_t i;
-size_t j;
-size_t minIndex;
+	size_t i, index;
+	int tmp, swap, flag = 0;
 
-for (i = 0; i < (size - 1); i++)
-{
-minIndex = i;
-for (j = i + 1; j < size; j++)
-{
-if (array[j] < array[minIndex])
-{
-minIndex = j;
-}
-}
-swap(&array[minIndex], &array[i]);
-print_array(array, size);
-}
+	if (array == NULL)
+		return;
+	for (i = 0; i < size; i++)
+	{
+		tmp = i;
+		flag = 0;
+		for (index = i + 1; index < size; index++)
+		{
+			if (array[tmp] > array[index])
+			{
+				tmp = index;
+				flag += 1;
+			}
+		}
+		swap = array[i];
+		array[i] = array[tmp];
+		array[tmp] = swap;
+		if (flag != 0)
+			print_array(array, size);
+	}
 }
